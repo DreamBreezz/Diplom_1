@@ -5,6 +5,8 @@ import org.junit.Test;
 import static constants.Constants.*;
 import static org.junit.Assert.assertEquals;
 
+// проверка геттеров Bun
+
 public class BunTests {
 
     private final String bunName = BUN_NAME;

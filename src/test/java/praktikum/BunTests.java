@@ -2,12 +2,13 @@ package praktikum;
 
 import org.junit.Test;
 
+import static constants.Constants.*;
 import static org.junit.Assert.assertEquals;
 
 public class BunTests {
 
-    private String bunName = "BunName";
-    private float bunPrice = 100500;
+    private final String bunName = BUN_NAME;
+    private final float bunPrice = BUN_PRICE;
     Bun bun = new Bun(bunName, bunPrice);
 
     @Test

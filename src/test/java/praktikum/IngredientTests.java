@@ -6,6 +6,7 @@ import org.junit.runners.Parameterized;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
+import static constants.Constants.*;
 import static org.junit.Assert.assertEquals;
 
 //@RunWith(Parameterized.Parameters)
@@ -28,8 +29,8 @@ public class IngredientTests {
 //    }
 
     IngredientType ingredientType = IngredientType.SAUCE;
-    private final String ingredientName = "IngredientName";
-    private final float ingredientPrice = 31415;
+    private final String ingredientName = INGR_NAME;
+    private final float ingredientPrice = INGR_PRICE;
     Ingredient ingredient = new Ingredient(ingredientType, ingredientName, ingredientPrice);
 
     @Test

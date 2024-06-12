@@ -7,9 +7,9 @@ import static org.junit.Assert.assertEquals;
 
 @RunWith(Parameterized.class)
 public class IngredientTests {
-    private IngredientType type;
-    private String name;
-    private float price;
+    private final IngredientType type;
+    private final String name;
+    private final float price;
 
     public IngredientTests(IngredientType type, String name, float price) {
         this.type = type;
@@ -27,9 +27,10 @@ public class IngredientTests {
 
     @Test
     public void ingredientIngredientTypeTest() {
-        Ingredient ingredient = new Ingredient(type, name, price);
-        assertEquals(ingredient.getType(), type);
-        assertEquals(ingredient.getName(), name);
-        assertEquals(ingredient.getPrice(), price, 0.001);
+        Ingredient i = new Ingredient(type, name, price);
+        System.out.println(i.getType() + ": " + i.getName() + ", " + i.getPrice()); //чтобы хоть что-то в консоли видеть
+        assertEquals(i.getType(), type);
+        assertEquals(i.getName(), name);
+        assertEquals(i.getPrice(), price, 0.001);
     }
 }

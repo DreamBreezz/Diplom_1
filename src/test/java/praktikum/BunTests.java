@@ -2,7 +2,7 @@ package praktikum;
 
 import org.junit.Test;
 
-import static constants.Constants.*;
+import static praktikum.constants.Constants.*;
 import static org.junit.Assert.assertEquals;
 
 // проверка геттеров Bun

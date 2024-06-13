@@ -8,7 +8,7 @@ import org.mockito.Mockito;
 import org.mockito.Spy;
 import org.mockito.junit.MockitoJUnitRunner;
 
-import static constants.Constants.*;
+import static praktikum.constants.Constants.*;
 import static org.mockito.Mockito.*;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -61,10 +61,7 @@ public class BurgerTests {
         Assert.assertEquals(expected, burgerPrice, 0.001);
     }
 
-
-    @Test
-    public void getReceiptTest() {
-
+    private void createMockedBurger() {
         // мокирование вызовов всех методов, которые вызываются при запросе рецепта бургера
         Mockito.when(bunMock.getName()).thenReturn(BUN_NAME);
         Mockito.when(ingredientMock.getType()).thenReturn(IngredientType.SAUCE);
@@ -74,27 +71,35 @@ public class BurgerTests {
 
         // сбор бургера
         burger.setBuns(bunMock);
-        burger.addIngredient(ingredientMock);  // если этот метод вызывать больше 1 раза, нужно поправить expected
+        burger.addIngredient(ingredientMock);  // если этот метод вызывать больше 1 раза, нужно менять тесты
+    }
+
+    @Test
+    public void getReceiptVerifyTest() {
+        createMockedBurger();
+        burger.getReceipt();
+
+        // проверка, сколько раз вызывался каждый метод
+        Mockito.verify(bunMock, times(2)).getName();
+        Mockito.verify(ingredientMock, times(1)).getType(); // цифра = кол-во вызовов
+        Mockito.verify(ingredientMock, times(1)).getName(); //         addIngredient
+        Mockito.verify(burger, times(1)).getPrice();
+    }
+
+    @Test
+    public void getReceiptTextTest() {
+        createMockedBurger();
+        String actual = burger.getReceipt();
 
         // вот такой текст должен получиться
         String expected = String.format("(==== " + BUN_NAME + " ====)%n" +
                 "= sauce "+ INGR_NAME +" =%n" + // эта строка должна быть столько раз, сколько вызывался addIngredient
                 "(==== "+ BUN_NAME+" ====)%n" +
                 "%n" +
-                "Price: "+ String.format("%f", ((BUN_PRICE * 2) + INGR_PRICE)) +"%n");
-
-        // вызов тестируемого метода
-        String actual = burger.getReceipt();
+                "Price: "+ String.format("%f", ((BUN_PRICE * 2) + INGR_PRICE)) +"%n"); // строку обязательно форматировать
 
         // вывод текста экран, для наглядности, т.к. при ошибке jUnit не хочет показывать о.р. и ф.р.
-        System.out.println("Expected result: \n" + expected + "\n");
-        System.out.println("Actual result: \n" + actual);
-
-        // проверка, сколько раз вызывался каждый метод
-        Mockito.verify(bunMock, times(2)).getName();
-        Mockito.verify(ingredientMock, times(1)).getType();
-        Mockito.verify(ingredientMock, times(1)).getName();
-        Mockito.verify(burger, times(1)).getPrice();
+        System.out.println("Expected result:\n" + expected + "\n\n" + "Actual result: \n" + actual);
 
         // сравнение о.р. и ф.р.
         Assert.assertEquals(expected, actual);

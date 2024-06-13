@@ -1,4 +1,4 @@
-package constants;
+package praktikum.constants;
 
 public class Constants {
     public static final String BUN_NAME = "BunName";

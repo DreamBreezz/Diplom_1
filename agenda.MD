@@ -1,15 +1,15 @@
 Подключи библиотеки: Jacoco, Mockito, JUnit 4.
 
 Покрой тестами классы:
-* Bun - готово
+* Bun
 * Burger
-* Ingredient - готово
-* IngredientType - готово
+* Ingredient
+* IngredientType
 
 Используй:
 * моки
 * стабы
-* параметризацию - готово
+* параметризацию
 
 там, где нужно.
 

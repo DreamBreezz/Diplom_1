@@ -21,7 +21,6 @@ public class BurgerTests {
     Bun bunMock;
     @Mock
     Ingredient ingredientMock;
-    //IngredientType ingrTypeMock
 
     @Test
     public void burgerSetBunsTest() {
@@ -77,18 +76,14 @@ public class BurgerTests {
         burger.setBuns(bunMock);
         burger.addIngredient(ingredientMock);  // если этот метод вызывать больше 1 раза, нужно поправить expected
 
-        // расчёт цены бургера, которую мы ожидаем получить
-        float b = ((BUN_PRICE * 2) + INGR_PRICE);
-        // приведение числа к формату, как в тестируемом классе
-        StringBuilder burgerPrice = new StringBuilder(String.format("%f", b));
-
         // вот такой текст должен получиться
         String expected = String.format("(==== " + BUN_NAME + " ====)%n" +
                 "= sauce "+ INGR_NAME +" =%n" + // эта строка должна быть столько раз, сколько вызывался addIngredient
                 "(==== "+ BUN_NAME+" ====)%n" +
                 "%n" +
-                "Price: "+ burgerPrice +"%n");
+                "Price: "+ String.format("%f", ((BUN_PRICE * 2) + INGR_PRICE)) +"%n");
 
+        // вызов тестируемого метода
         String actual = burger.getReceipt();
 
         // вывод текста экран, для наглядности, т.к. при ошибке jUnit не хочет показывать о.р. и ф.р.

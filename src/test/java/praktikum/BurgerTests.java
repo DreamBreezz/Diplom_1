@@ -65,6 +65,7 @@ public class BurgerTests {
 
     @Test
     public void getReceiptTest() {
+
         // мокирование вызовов всех методов, которые вызываются при запросе рецепта бургера
         Mockito.when(bunMock.getName()).thenReturn(BUN_NAME);
         Mockito.when(ingredientMock.getType()).thenReturn(IngredientType.SAUCE);
@@ -77,18 +78,20 @@ public class BurgerTests {
         burger.addIngredient(ingredientMock);  // если этот метод вызывать больше 1 раза, нужно поправить expected
 
         // расчёт цены бургера, которую мы ожидаем получить
-        float burgerPrice = ((BUN_PRICE * 2) + INGR_PRICE);
+        float b = ((BUN_PRICE * 2) + INGR_PRICE);
+        // приведение числа к формату, как в тестируемом классе
+        StringBuilder burgerPrice = new StringBuilder(String.format("%f", b));
 
         // вот такой текст должен получиться
         String expected = String.format("(==== " + BUN_NAME + " ====)%n" +
-                "= sauce "+ INGR_NAME +" =%n" +
+                "= sauce "+ INGR_NAME +" =%n" + // эта строка должна быть столько раз, сколько вызывался addIngredient
                 "(==== "+ BUN_NAME+" ====)%n" +
                 "%n" +
                 "Price: "+ burgerPrice +"%n");
 
         String actual = burger.getReceipt();
 
-        // вывод теста экран, для наглядности, т.к. при ошибке jUnit не хочет показывать ОР и ФР
+        // вывод текста экран, для наглядности, т.к. при ошибке jUnit не хочет показывать о.р. и ф.р.
         System.out.println("Expected result: \n" + expected + "\n");
         System.out.println("Actual result: \n" + actual);
 
@@ -98,25 +101,7 @@ public class BurgerTests {
         Mockito.verify(ingredientMock, times(1)).getName();
         Mockito.verify(burger, times(1)).getPrice();
 
-        // сравнение ОР и ФР
+        // сравнение о.р. и ф.р.
         Assert.assertEquals(expected, actual);
     }
-
-//    @Test
-//    public void burgerGetReceiptTest() {
-//        // мокирование всех вызываемых внутри методов
-//        burger.setBuns(bunMock);
-//        burger.addIngredient(ingredientMock);
-//        burger.addIngredient(ingredientMock);
-//        ingredientMock.getType();
-//
-//        burger.getReceipt();
-//        Mockito.verify(bunMock, times(2)).getName();
-    // запись строки, которая должна получиться, в переменную
-
-
-    // проверяем правильный вывод строки
-//        String burgerReceipt = burger.getReceipt();
-//
-//        Assert.assertEquals(mockedBurgerGetReceipt, burgerReceipt);
 }

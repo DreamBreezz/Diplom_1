@@ -28,7 +28,6 @@ public class IngredientTests {
     @Test
     public void ingredientIngredientTypeTest() {
         Ingredient i = new Ingredient(type, name, price);
-        System.out.println(i.getType() + ": " + i.getName() + ", " + i.getPrice()); //чтобы хоть что-то в консоли видеть
         assertEquals(i.getType(), type);
         assertEquals(i.getName(), name);
         assertEquals(i.getPrice(), price, 0.001);

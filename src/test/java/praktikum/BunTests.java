@@ -20,6 +20,6 @@ public class BunTests {
 
     @Test
     public void bunGetPriceTest() {
-        assertEquals(bun.getPrice(), bunPrice, 0.001);
+        assertEquals(bun.getPrice(), bunPrice, DELTA);
     }
 }

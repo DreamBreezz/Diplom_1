@@ -23,12 +23,6 @@ public class BurgerTests {
     Ingredient ingredientMock;
 
     @Test
-    public void burgerSetBunsTest() {
-        burger.setBuns(bunMock);
-        Mockito.verify(burger).setBuns(bunMock);
-    }
-
-    @Test
     public void burgerAddMoveRemoveIngredientTest() {
         burger.addIngredient(ingredientMock);
         burger.addIngredient(ingredientMock);

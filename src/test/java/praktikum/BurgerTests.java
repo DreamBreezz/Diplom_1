@@ -21,16 +21,24 @@ public class BurgerTests {
     Bun bunMock;
     @Mock
     Ingredient ingredientMock;
+    @Mock
+    Ingredient ingredientMock2;
 
     @Test
-    public void burgerAddMoveRemoveIngredientTest() {
+    public void burgerMoveIngredientTest() {
         burger.addIngredient(ingredientMock);
         burger.addIngredient(ingredientMock);
-        burger.moveIngredient(0, 1);
+        burger.addIngredient(ingredientMock2);
+        burger.moveIngredient(2,0);
+        Assert.assertEquals(burger.ingredients.get(0), ingredientMock2);
+    }
+
+    @Test
+    public void burgerRemoveIngredientTest() {
+        burger.addIngredient(ingredientMock);
+        burger.addIngredient(ingredientMock);
         burger.removeIngredient(0);
-        Mockito.verify(burger, times(2)).addIngredient(ingredientMock);
-        Mockito.verify(burger).moveIngredient(0, 1);
-        Mockito.verify(burger).removeIngredient(0);
+        Assert.assertEquals(burger.ingredients.size(), 1);
     }
 
     @Test

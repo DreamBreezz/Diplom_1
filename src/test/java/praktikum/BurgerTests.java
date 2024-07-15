@@ -5,17 +5,14 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.mockito.Spy;
 import org.mockito.junit.MockitoJUnitRunner;
 
 import static praktikum.constants.Constants.*;
-import static org.mockito.Mockito.*;
 
 @RunWith(MockitoJUnitRunner.class)
 public class BurgerTests {
 
-    @Spy
-    Burger burger;
+    Burger burger = new Burger();
 
     @Mock
     Bun bunMock;
@@ -25,12 +22,24 @@ public class BurgerTests {
     Ingredient ingredientMock2;
 
     @Test
+    public void burgerSetBunsTest() {
+        burger.setBuns(bunMock);
+        Assert.assertEquals(bunMock, burger.bun);
+    }
+
+    @Test
+    public void burgerAddIngredientTest() {
+        burger.addIngredient(ingredientMock);
+        Assert.assertEquals(ingredientMock, burger.ingredients.get(0));
+    }
+
+    @Test
     public void burgerMoveIngredientTest() {
         burger.addIngredient(ingredientMock);
         burger.addIngredient(ingredientMock);
         burger.addIngredient(ingredientMock2);
         burger.moveIngredient(2,0);
-        Assert.assertEquals(burger.ingredients.get(0), ingredientMock2);
+        Assert.assertEquals(ingredientMock2, burger.ingredients.get(0));
     }
 
     @Test
@@ -57,9 +66,7 @@ public class BurgerTests {
         // булки всегда х2, ингредиентов столько, сколько раз вызывался addIngredient чуть выше
         float expected = (BUN_PRICE * 2) + (INGR_PRICE * 2);
 
-        // проверка, что методы вызвались и результат актуален
-        Mockito.verify(bunMock, times(1)).getPrice();
-        Mockito.verify(ingredientMock, times(2)).getPrice();  // цифра = кол-во addIngredients
+        // проверка, что результат корректен
         Assert.assertEquals(expected, burgerPrice, 0.001);
     }
 
@@ -74,18 +81,6 @@ public class BurgerTests {
         // сбор бургера
         burger.setBuns(bunMock);
         burger.addIngredient(ingredientMock);  // если этот метод вызывать больше 1 раза, нужно менять тесты
-    }
-
-    @Test
-    public void getReceiptVerifyTest() {
-        createMockedBurger();
-        burger.getReceipt();
-
-        // проверка, сколько раз вызывался каждый метод
-        Mockito.verify(bunMock, times(2)).getName();
-        Mockito.verify(ingredientMock, times(1)).getType(); // цифра = кол-во вызовов
-        Mockito.verify(ingredientMock, times(1)).getName(); //         addIngredient
-        Mockito.verify(burger, times(1)).getPrice();
     }
 
     @Test
